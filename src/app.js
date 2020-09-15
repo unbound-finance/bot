@@ -1,22 +1,25 @@
 import express from "express";
-import { Router } from 'express'
+import bodyParser from "body-parser";
+
 import config from "./config";
-
-import routes from './api/index'
-
+import routes from "./api/index";
 import Logger from "./loaders/logger";
-
-const router = Router()
 
 async function startServer() {
   const app = express();
 
-    //routes
-    app.get('/', async (req, res) => {
-      res.send('Welcome to bharatX');
-    });
+  // support parsing of application/json type post data
+  app.use(bodyParser.json());
 
-    app.use('/', routes);
+  //support parsing of application/x-www-form-urlencoded post data
+  app.use(bodyParser.urlencoded({ extended: true }));
+
+  //routes
+  app.get("/", async (req, res) => {
+    res.send("Welcome to unbound");
+  });
+
+  app.use("/", routes);
 
   app.listen(config.port, (err) => {
     if (err) {
