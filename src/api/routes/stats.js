@@ -4,7 +4,7 @@ import logger from "../../loaders/logger";
 
 const route = Router();
 
-route.post("/dayData", async (req, res) => {
+route.get("/dayData", async (req, res, next) => {
   logger.debug("Calling Day Data endpoint with body: %o", req.body);
   console.log("Hello World");
   try {

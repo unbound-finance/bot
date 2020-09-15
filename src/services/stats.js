@@ -13,7 +13,7 @@ export default class StatsService {
             query($date: Int!, $pair: String!){
                 mints(orderBy: timestamp, orderDirection: desc, where: {
                     pair: $pair,
-                    date: $date
+                    timestamp_gt: $date
                 }){
                     transaction {
                         id
@@ -28,7 +28,7 @@ export default class StatsService {
         `,
         variables: {
           date: last24hts,
-          pair,
+          pair: pair,
         },
       });
 
@@ -38,15 +38,13 @@ export default class StatsService {
         headers: {
           "Content-Type": "application/json",
         },
-        data,
+        data: data,
       };
-
-      console.log(data)
 
       // shoot the post request to uniswapV2
       try {
         const result = await axios(config);
-        return result;
+        return result.data.data;
       } catch (e) {
         Logger.error(e);
       }
