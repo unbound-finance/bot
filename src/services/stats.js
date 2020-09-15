@@ -1,5 +1,5 @@
-import Axios from "axios";
-import config from "../config";
+import axios from "axios";
+// import config from "../config";
 import Logger from "../loaders/logger";
 
 export default class StatsService {
@@ -40,6 +40,8 @@ export default class StatsService {
         },
         data,
       };
+
+      console.log(data)
 
       // shoot the post request to uniswapV2
       try {
